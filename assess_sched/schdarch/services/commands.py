@@ -97,6 +97,9 @@ class EditAssessmentCommand(Command):
     """
 
     def execute(self, data: DomainAssessment):
-        assessment = Assessment.update_from_domain(data)
+
+        #        assessment = Assessment.update_from_domain(data)
+
+        assessment = Assessment.to_domain(data)
         with transaction.atomic():
             assessment.save()
