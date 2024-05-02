@@ -50,13 +50,13 @@ def send_assessment_to_channel(sender, instance, **kwargs):
     print(f"Sending Assessment to channel: {instance}")
 
     async_to_sync(channel_layer.send)(
-        "assessments-add", {"type": "print.assessment", "data": instance.url}
+        "assessments-add", {"type": "print.assessment", "data": instance.id}
     )
 
 
 # connect the signal to this receiver
 post_save.connect(log_assessment_to_csv, sender=Assessment)
-post_save.connect(send_assessment_to_channel, sender=Assessment)
+# post_save.connect(send_assessment_to_channel, sender=Assessment)
 
 
 # can add more examples of saving an assessor and a schedule

@@ -17,7 +17,7 @@ from .views import AssessmentViewSet
 class AssessmentTests(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.Assessment = Assessment.objects.create(
+        self.assessment = Assessment.objects.create(
             id=10,
             lab_id="ELP-001",
             timeframe="Winter",
@@ -30,7 +30,7 @@ class AssessmentTests(APITestCase):
         # the simple router provides the name 'Assessment-list' for the URL pattern: https://www.django-rest-framework.org/api-guide/routers/#simplerouter
         self.list_url = reverse("schdapi:assessment-list")
         self.detail_url = reverse(
-            "schdapi:assessment-detail", kwargs={"pk": self.Assessment.id}
+            "schdapi:assessment-detail", kwargs={"pk": self.assessment.id}
         )
 
     # 1. create a Assessment
@@ -61,7 +61,7 @@ class AssessmentTests(APITestCase):
         response = self.client.get(self.list_url)
         self.assertTrue(status.is_success(response.status_code))
         self.assertEqual(response.data["results"]
-                         [0]["notes"], self.Assessment.notes)
+                         [0]["notes"], self.assessment.notes)
 
     # 3. retrieve a Assessment
     def test_retrieve_Assessment(self):
@@ -70,7 +70,7 @@ class AssessmentTests(APITestCase):
         """
         response = self.client.get(self.detail_url)
         self.assertTrue(status.is_success(response.status_code))
-        self.assertEqual(response.data["notes"], self.Assessment.notes)
+        self.assertEqual(response.data["notes"], self.assessment.notes)
 
     # 4. delete a Assessment
     def test_delete_Assessment(self):
@@ -78,7 +78,7 @@ class AssessmentTests(APITestCase):
         Ensure we can delete a Assessment object.
         """
         response = self.client.delete(
-            reverse("schdapi:Assessment-detail",
+            reverse("schdapi:assessment-detail",
                     kwargs={"pk": self.Assessment.id})
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -99,8 +99,8 @@ class AssessmentTests(APITestCase):
             "type": "PreAssessment"
         }
         response = self.client.put(
-            reverse("schdapi:Assessment-detail",
-                    kwargs={"pk": self.Assessment.id}),
+            reverse("schdapi:assessment-detail",
+                    kwargs={"pk": self.assessment.id}),
             data,
             format="json",
         )

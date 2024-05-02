@@ -5,7 +5,7 @@ specify and implement the business logic layer
 import sys
 from abc import ABC, abstractmethod
 from datetime import datetime
-# from injector import Injector, inject
+# from injector import inject
 import pytz
 
 import requests
@@ -33,22 +33,30 @@ class AddAssessmentCommand(Command):
     Using the django orm and transactions to add a Assessment
     """
 
+    def execute(self, data: DomainAssessment):
+        assessment = Assessment(
+            data.id, data.lab_id, data.timeframe, data.man_days, data.notes, data.type)
 
-"""
+        # again, we skip the ouw with django's transaction management
+        with transaction.atomic():
+            assessment.save()
+
+
+'''
     @inject
     def __init__(self, now: PythonTimeStampProvider = PythonTimeStampProvider()):
         self.now = now
-"""
 
 
-def execute(self, data: DomainAssessment):
-    assessment = Assessment(
-        data.id, data.lab_id, data.timeframe, data.man_days, data.notes, data.type)
-#        assessment.timestamp = self.now
+    def execute(self, data: DomainAssessment):
+        assessment = Assessment(
+            data.id, data.lab_id, data.timeframe, data.man_days, data.notes, data.type)
+        #        assessment.timestamp = self.now
 
-    # again, we skip the ouw with django's transaction management
-    with transaction.atomic():
-        assessment.save()
+        # again, we skip the ouw with django's transaction management
+        with transaction.atomic():
+            assessment.save()
+'''
 
 
 class GetAssessmentCommand(Command):
@@ -78,7 +86,7 @@ class DeleteAssessmentCommand(Command):
     """
 
     def execute(self, data: DomainAssessment):
-        assessment = Assessment.objects.get(url=data.url)
+        assessment = Assessment.objects.get(id=data.id)
         with transaction.atomic():
             assessment.delete()
 
