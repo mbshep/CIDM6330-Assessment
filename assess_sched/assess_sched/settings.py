@@ -33,9 +33,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # 3rd party
     # channels docs recommend adding channels before other apps
+    "daphne",  # ASGI server
     "channels",  # Channels
     "rest_framework",  # REST API
-    "daphne",  # ASGI server
     # django
     "django.contrib.admin",
     "django.contrib.auth",

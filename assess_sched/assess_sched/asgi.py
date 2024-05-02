@@ -25,7 +25,7 @@ application = ProtocolTypeRouter(
         "http": assess_sched_asgi_app,
         "channel": ChannelNameRouter(
             {
-                "assessment-add": consumers.SimpleAssessmentConsumer.as_asgi(),
+                "assessments-add": consumers.SimpleAssessmentConsumer.as_asgi(),
             }
         ),
     }

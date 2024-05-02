@@ -50,7 +50,7 @@ def send_assessment_to_channel(sender, instance, **kwargs):
     print(f"Sending Assessment to channel: {instance}")
 
     async_to_sync(channel_layer.send)(
-        "assessments-add", {"type": "print.assessment", "data": instance.id}
+        "assessments-add", {"type": "print.assessment", "data": instance.notes}
     )
 
 

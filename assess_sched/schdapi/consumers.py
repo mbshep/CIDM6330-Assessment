@@ -18,7 +18,23 @@ class SimpleAssessmentConsumer(AsyncConsumer):
     async def print_assessment(self, message):
         print(f"WORKER: Assessment: {message['data']}")
 
+
+class AssessmentConsumer(AsyncHttpConsumer):
+    async def handle(self, body):
+        # Get all assessments
+        assessments = Assessment.objects.all()
+        # Serialize the assessments
+        data = json.dumps(
+            [{"id": assessment.id, "lab_id": assessment.lab_id}
+                for assessment in assessments]
+        )
+        # Send the serialized data as a JSON response
+        await self.send_response(
+            200, data, headers=[(b"Content-Type", b"application/json")]
+        )
+
     # Server-send event https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events
+
     async def handle(self, body):
         await self.send_headers(
             headers=[
