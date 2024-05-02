@@ -56,7 +56,7 @@ def send_assessment_to_channel(sender, instance, **kwargs):
 
 # connect the signal to this receiver
 post_save.connect(log_assessment_to_csv, sender=Assessment)
-# post_save.connect(send_assessment_to_channel, sender=Assessment)
+post_save.connect(send_assessment_to_channel, sender=Assessment)
 
 
 # can add more examples of saving an assessor and a schedule
