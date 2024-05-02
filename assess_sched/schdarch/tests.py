@@ -82,7 +82,8 @@ class TestCommands(TestCase):
         # just modify
         self.domain_assessment_1.notes = "This is not new"
 
-        edit_command = EditAssessmentCommand()
+        # going to try AddAssessmentCommand here since technically add and edit are the same Django command
+        edit_command = AddAssessmentCommand()
         edit_command.execute(self.domain_assessment_1)
 
         # run checks

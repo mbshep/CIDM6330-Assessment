@@ -1,6 +1,6 @@
 class DomainAssessment:
-    """ Domain model for assessments, I'm not sure if this is needed
-    it is imported by schdapi.models.py
+    """ 
+        Domain model for assessments
     """
 
     def __init__(self, id, lab_id, timeframe, man_days, notes, type):
