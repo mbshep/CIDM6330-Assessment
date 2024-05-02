@@ -25,4 +25,4 @@
  7. Ran makemigrations `code` py manage.py makemigrations
  8. then ran migrate `code` py manage.py migrate
  9. Start my redis listener in a separate terminal `code` ./manage.py runworker assessments-add
- 10. Now try to run tests `code` ./manage.py test stdarch.tests.TestCommands
+ 10. Now try to run tests `code` ./manage.py test schdarch.tests.TestCommands
